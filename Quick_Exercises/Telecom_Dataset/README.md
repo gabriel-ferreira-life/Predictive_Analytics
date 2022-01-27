@@ -1,4 +1,4 @@
-# Telecommunication Industry Problem:
+# (Unbalanced dataset) Telecommunication Industry Problem: 
 
 With the rapid development of telecommunication industry, the service providers are inclined more towards expansion of the subscriber base. To meet the need of surviving in the competitive environment, the retention of existing customers has become a huge challenge. 
 
