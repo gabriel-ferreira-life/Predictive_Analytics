@@ -18,16 +18,6 @@ import Feature_Importance_Funs
 train = pd.read_csv('train_dataset.csv')
 train = train.dropna()
 
-## Engineering features using the strong heredity principle
-train['heredity_1'] = train['interaction_1'] * train['trustLevel']
-
-train['heredity_2'] = train['interaction_1'] * train['Labels']
-
-train['heredity_3'] = train['trustLevel'] * train['Labels']
-
-# Variable created in the last feature engineering section
-train['interaction_9'] = np.where(train['heredity_1'] > 0.5, 1, 0)
-
 logit_list = list()
 RF_list = list()
 Ada_list = list()
@@ -47,19 +37,19 @@ for i in range(0,100):
     X_test = pd.DataFrame(scaler.fit_transform(X_test), columns = X_test.columns)
     
     # Running RFE with LogisticRegression
-    logit_rfe = RFE(estimator = LogisticRegression(), n_features_to_select = 5).fit(X_train, Y_train)# Extracting features that got 
+    logit_rfe = RFE(estimator = LogisticRegression(), n_features_to_select = 7).fit(X_train, Y_train)# Extracting features that got 
     
     # Extracting features that got slected
     logit_list.append(X_train.columns[logit_rfe.support_])
     
     # Running RFE with random forest
-    RF_rfe = RFE(estimator = RandomForestClassifier(n_estimators = 500, max_depth = 3), n_features_to_select = 5).fit(X_train, Y_train)
+    RF_rfe = RFE(estimator = RandomForestClassifier(n_estimators = 500, max_depth = 3), n_features_to_select = 7).fit(X_train, Y_train)
 
     # Extracting features that got slected
     RF_list.append(X_train.columns[RF_rfe.support_])
     
     # Running RFE with AdaBoost
-    Ada_rfe = RFE(estimator = AdaBoostClassifier(base_estimator = DecisionTreeClassifier(max_depth = 3), n_estimators = 500, learning_rate = 0.01), n_features_to_select = 5).fit(X_train, Y_train)
+    Ada_rfe = RFE(estimator = AdaBoostClassifier(base_estimator = DecisionTreeClassifier(max_depth = 3), n_estimators = 500, learning_rate = 0.01), n_features_to_select = 7).fit(X_train, Y_train)
 
     # Extracting features that got slected
     Ada_list.append(X_train.columns[Ada_rfe.support_])
